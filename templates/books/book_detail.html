@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="book-detail">
+        <h2>{{ object.title }}</h2>
+        <p>by {{ object.author }} published on {{ object.publicationDate }}</p>
+        <img width="100" src="{{ book.coverImage.url }}">
+        {% if user.is_authenticated %}
+        <p><a target="blank" href="{% url 'book_pdf_open' book.pk %}">Read Online</a><p>
+        <p><a href="{% url 'book_pdf_download' book.pk %}">Download</a></p>
+        <p><a href="{% url 'add_to_fav' book.pk %}">Add to Favorites +</a></p>
+        {% endif %}
+    </div>
+    <p>Back to <a href="{% url 'book_list' %}">All books</a>.</p>
+{% endblock content %}

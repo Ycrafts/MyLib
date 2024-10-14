@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Favorites</h1>
+<ul>
+    {% for favorite in favorites %}
+      <li>
+        <p><a href="{% url 'book_detail' favorite.book.pk %}">{{ favorite }}</a><a href="{% url 'remove_favorite' favorite.book.pk %}"> Remove</a></p>
+      </li>
+    {% empty %}
+      <li>No books available.</li>
+    {% endfor %}
+  </ul>
+{% endblock content %}

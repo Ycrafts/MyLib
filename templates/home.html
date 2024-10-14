@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Book List</h1>
+  <ul>
+    {% for book in books %}
+      <li>
+          <a href="{% url 'book_detail' book.pk %}"><img width="100" src="{{ book.coverImage.url }}"></a>
+          <a target="blank" href="{% url 'book_pdf_open' book.pk %}">Read Online</a>
+
+        {% if user.is_authenticated %}
+        <a href="{% url 'book_pdf_download' book.pk %}">Download</a>
+        <a href="{% url 'add_to_fav' book.pk %}">Add to Favorites +</a>
+        {% endif %}
+        <h2>{{ book.title }}</h2>
+        <p>by {{ book.author }}</p>
+      </li>
+    {% empty %}
+      <li>No books available.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+

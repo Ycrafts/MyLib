@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<p>Are you sure you want to remove the book "{{ book.title }}" from favorites?</p>
+<form method="post">
+    {% csrf_token %}
+    <button class = "bt btn-dark" type="submit">Remove</button>
+  </form>
+{% endblock content%}

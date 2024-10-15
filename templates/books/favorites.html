@@ -1,10 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Favorites</h1>
-<ul>
+  <h1 class="favorites-title">Favorites</h1>
+  <ul class="favorites-list">
     {% for favorite in favorites %}
-      <li>
-        <p><a href="{% url 'book_detail' favorite.book.pk %}">{{ favorite }}</a><a href="{% url 'remove_favorite' favorite.book.pk %}"> Remove</a></p>
+      <li class="favorite-item">
+        <div class="favorite-card">
+          <a href="{% url 'book_detail' favorite.book.pk %}">
+            <div class="favorite-card-image-container">
+            <img src="{{ favorite.book.coverImage.url }}" class="favorite-card-image" alt="Picture Unavailable">
+            </div>
+          </a>
+          <div class="favorite-card-body">
+            <h5 class="favorite-card-title">{{ favorite.book.title }}</h5>
+            <p class="favorite-card-author">by {{ favorite.book.author }}</p>
+            <p class="favorite-card-description">{{ favorite.book.description|truncatewords:20 }}</p>
+            <div class="favorite-card-actions">
+              <a href="{% url 'book_detail' favorite.book.pk %}" class="btn btn-dark">View Details</a>
+              <a href="{% url 'remove_favorite' favorite.book.pk %}" class="btn btn-dark">Remove</a>
+            </div>
+          </div>
+        </div>
       </li>
     {% empty %}
       <li>No books available.</li>

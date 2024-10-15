@@ -23,6 +23,8 @@ def serve_pdf_open(request, pk):
 @login_required(login_url="/users/login")
 def serve_pdf_download(request, pk):
     book = get_object_or_404(Book, pk=pk)
+    book.download_count += 1
+    book.save()
     pdf_file = book.pdfLink  # Assuming this is a FileField or similar
     pdf_data = default_storage.open(pdf_file.name, 'rb').read()
     response = HttpResponse(pdf_data, content_type='application/octet-stream')

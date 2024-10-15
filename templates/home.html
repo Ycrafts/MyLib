@@ -1,23 +1,32 @@
+<!-- home.html -->
+
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Book List</h1>
-  <ul>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for book in books %}
-      <li>
-          <a href="{% url 'book_detail' book.pk %}"><img width="100" src="{{ book.coverImage.url }}"></a>
-          <a target="blank" href="{% url 'book_pdf_open' book.pk %}">Read Online</a>
-
-        {% if user.is_authenticated %}
-        <a href="{% url 'book_pdf_download' book.pk %}">Download</a>
-        <a href="{% url 'add_to_fav' book.pk %}">Add to Favorites +</a>
-        {% endif %}
-        <h2>{{ book.title }}</h2>
-        <p>by {{ book.author }}</p>
-      </li>
+      <div class="col">
+        <div class="card h-100">
+          <a href="{% url 'book_detail' book.pk %}"><img src="{{ book.coverImage.url }}" class="card-img-top" alt="Picture Unavailable"></a>
+          <div class="card-body">
+            <h5 class="card-title">{{ book.title }}</h5>
+            <p class="card-text">by {{ book.author }}</p>
+            <div class="download-info">
+              <i class="fas fa-download"></i> {{ book.download_count }} downloads
+            </div> 
+            <div class="d-flex justify-content-between">
+              <a href="{% url 'book_detail' book.pk %}" class="btn btn-dark">View Details</a>
+              {% if user.is_authenticated %}
+              
+              <a href="{% url 'book_pdf_download' book.pk %}" class="btn btn-dark">Download</a>
+              <a href="{% url 'add_to_fav' book.pk %}" class="btn btn-dark">Add to Favorites+</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
     {% empty %}
-      <li>No books available.</li>
+      <p>No books available.</p>
     {% endfor %}
-  </ul>
+  </div>
 {% endblock %}
-

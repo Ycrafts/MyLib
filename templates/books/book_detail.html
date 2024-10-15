@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    <div class="book-detail">
-        <h2>{{ object.title }}</h2>
-        <p>by {{ object.author }} published on {{ object.publicationDate }}</p>
-        <img width="100" src="{{ book.coverImage.url }}">
+    <div class="book-detail container mx-auto p-4">
+        <h2 class="text-2xl font-bold mb-4">{{ object.title }}</h2>
+        <p class="text-lg mb-6">by {{ object.author }} published on {{ object.publicationDate }}</p>
+        <img class="book-cover w-24 h-36 object-cover rounded-md mb-4" src="{{ book.coverImage.url }}">
         {% if user.is_authenticated %}
-        <p><a target="blank" href="{% url 'book_pdf_open' book.pk %}">Read Online</a><p>
-        <p><a href="{% url 'book_pdf_download' book.pk %}">Download</a></p>
-        <p><a href="{% url 'add_to_fav' book.pk %}">Add to Favorites +</a></p>
+        <p class="book-actions mb-4">
+            <a href="{% url 'book_pdf_open' book.pk %}">Read Online</a>
+            <a href="{% url 'book_pdf_download' book.pk %}">Download</a>
+            <a href="{% url 'add_to_fav' book.pk %}">Add to Favorites +</a>
+        </p>
         {% endif %}
     </div>
-    <p>Back to <a href="{% url 'book_list' %}">All books</a>.</p>
+    <p class="text-lg mb-4">Back to <a class="text-blue-600 hover:text-blue-800" href="{% url 'book_list' %}">All books</a>.</p>
 {% endblock content %}

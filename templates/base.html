@@ -28,6 +28,10 @@
                     </li>
                     {% endif %}
                 </ul>
+                <form  class="d-flex ms-auto" method="get" action="{% url 'search_results' %}">
+                    <input required class="form-control me-2" type="search" name="q" placeholder="Search...">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
                         <li class="nav-item">

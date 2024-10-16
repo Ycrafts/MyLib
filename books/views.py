@@ -9,11 +9,17 @@ from django.core.files.storage import default_storage
 from django.http import FileResponse, HttpResponse
 import os
 from django.contrib.auth.decorators import login_required
+from .forms import SearchForm
+
 
 class BookListView(ListView):
     model = Book
     template_name = "home.html"
     context_object_name = 'books'
+    
+    def get_queryset(self):
+        return Book.objects.order_by('-download_count') #highest download_count first
+    
     
 def serve_pdf_open(request, pk):
     book = get_object_or_404(Book, pk=pk)
@@ -70,3 +76,22 @@ class DeleteFavoriteView(LoginRequiredMixin, DeleteView):  #favorite related
         book = context['book'].book
         context['book'] = book
         return context
+    
+class SearchView(ListView):
+    model = Book
+    form_class = SearchForm
+    template_name = 'books/search_results.html'
+    context_object_name = "book_search_list"
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        form = self.form_class(self.request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['q']
+            queryset = queryset.filter(
+                title__icontains=query) | queryset.filter(
+                author__name__icontains=query) | queryset.filter(
+                category__name__icontains=query) | queryset.filter(
+                publicationDate__icontains=query)
+                
+        return queryset
+    

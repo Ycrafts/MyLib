@@ -1,7 +1,15 @@
 from django.urls import path
 from .views import BookListView
 from django.views.static import serve
-from .views import serve_pdf_download, serve_pdf_open, add_to_fav, BookDetailView, FavoriteBookListView, DeleteFavoriteView
+from .views import (
+    serve_pdf_download, 
+    serve_pdf_open, 
+    add_to_fav, 
+    BookDetailView, 
+    FavoriteBookListView, 
+    DeleteFavoriteView,
+    SearchView,
+)
 
 
 urlpatterns = [
@@ -13,4 +21,6 @@ urlpatterns = [
     path('favorites/<int:pk>/remove',DeleteFavoriteView.as_view(), name="remove_favorite" ),
     path('<int:pk>/', BookDetailView.as_view(), name="book_detail"),
     path('favorites/', FavoriteBookListView.as_view(), name="favorites"),
+    path('search/', SearchView.as_view(), name="search_results")
 ]
+

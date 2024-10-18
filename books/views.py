@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse, reverse_lazy
 from .models import Category, Book, FavoriteList, Author
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView, UpdateView, DeleteView,DetailView, ListView
+from django.views.generic import DeleteView,DetailView, ListView
 from django.shortcuts import get_object_or_404
 from django.views.static import serve
 from django.core.files.storage import default_storage
@@ -31,7 +31,7 @@ def serve_pdf_download(request, pk):
     book = get_object_or_404(Book, pk=pk)
     book.download_count += 1
     book.save()
-    pdf_file = book.pdfLink  # Assuming this is a FileField or similar
+    pdf_file = book.pdfLink  
     pdf_data = default_storage.open(pdf_file.name, 'rb').read()
     response = HttpResponse(pdf_data, content_type='application/octet-stream')
     response['Content-Disposition'] = 'attachment; filename="{}"'.format(os.path.basename(pdf_file.name))
@@ -94,4 +94,3 @@ class SearchView(ListView):
                 publicationDate__icontains=query)
                 
         return queryset
-    

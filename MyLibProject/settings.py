@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-s)4l)lqsa_&cz_=bo*wc%p@f6hhkl(98!k==u#_x+u&jdy521b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -87,12 +87,12 @@ WSGI_APPLICATION = 'MyLibProject.wsgi.application'
 
 DATABASES={
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mylib',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'Password',
-        'HOST': 'localhost',
-        'PORT':'',
+        'PASSWORD': 'iQJAcUbwKCWaBXlQKnzePvKWGRCawnUj',
+        'HOST': 'junction.proxy.rlwy.net',
+        'PORT':'43138',
     }
 }
 

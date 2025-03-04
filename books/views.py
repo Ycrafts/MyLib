@@ -20,7 +20,6 @@ class BookListView(ListView):
     def get_queryset(self):
         return Book.objects.order_by('-download_count') #highest download_count first
     
-    
 def serve_pdf_open(request, pk):
     book = get_object_or_404(Book, pk=pk)
     pdf_file = book.pdfLink

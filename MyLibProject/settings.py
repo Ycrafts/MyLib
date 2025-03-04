@@ -85,14 +85,14 @@ WSGI_APPLICATION = 'MyLibProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES={
+DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mylib',
         'USER': 'postgres',
-        'PASSWORD': 'iQJAcUbwKCWaBXlQKnzePvKWGRCawnUj',
-        'HOST': 'junction.proxy.rlwy.net',
-        'PORT':'43138',
+        'PASSWORD': 'Password',
+        'HOST': '',
+        'PORT': '',
     }
 }
 

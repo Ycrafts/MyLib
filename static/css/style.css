@@ -1,32 +1,105 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7f6; /* Lighter, cooler gray */
+}
+
 a {
     text-decoration: none;
     color: inherit;
-}
-body {
-    font-family: Arial, sans-serif;
-  }
-  
-  .card {
-    width: 250;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 0 10;
-    transform: scale(0.8); /* Scale down the entire card (80% of original size) */
-    transform-origin: top left; 
-  }
-
-  .book-detail {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: color 0.2s ease-in-out;
 }
 
-.card-body {
-    padding: 3px; /* Reduce padding inside the card body */
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(45deg, #6dd5ed, #2193b0);
+    padding: 6rem 1rem;
+    margin-bottom: 3rem;
+    border-radius: 15px;
+}
+
+.hero-section h1 {
+    font-weight: 700;
+    color: #fff;
+}
+
+.hero-section p {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #fff;
+    opacity: 0.9;
+}
+
+/* Card Styles */
+.book-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.book-card .card-img-top {
+    width: 100%;
+    height: 220px; /* Adjusted height */
+    object-fit: contain;
+    padding: 1.5rem; /* Increased padding */
+}
+
+.book-card .card-body {
+    padding: 0 1.5rem 1.5rem; /* Adjusted padding */
+}
+
+.book-card .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem; /* Increased margin */
+}
+
+.book-card .card-text {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem; /* Increased margin */
+}
+
+.book-card .download-info {
+    font-size: 0.9rem;
+    color: #0d6efd;
+    margin-bottom: 1rem;
+}
+
+.book-card .card-footer {
+    background-color: transparent;
+    border-top: 1px solid #e0e0e0; /* Added border top */
+    padding: 1rem 1.5rem; /* Adjusted padding */
+}
+
+/* Book Detail Page */
+
+
+/* Favorites Page */
+.favorites-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Authentication Forms */
+.auth-form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
 }
 
 .text-2xl {
@@ -107,49 +180,39 @@ body {
     height: 300px; 
 }
 
-.favorites-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .favorites-list {
+.favorites-list {
     list-style-type: none;
     padding: 0;
-  }
-  
+}
 
-  
-  .favorite-item {
+.favorite-item {
     display: flex; /* Use flexbox to align items */
     justify-content: center; /* Center the card in the list */
     margin-bottom: 20px;
-  }
-  .favorite-card:hover {
+}
+.favorite-card:hover {
     transform: scale(1.02);
-  }
-  
- 
-  .favorite-card-title {
+}
+
+.favorite-card-title {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
-  }
-  
-  .favorite-card-author {
+}
+
+.favorite-card-author {
     font-size: 16px;
     color: #666;
     margin-bottom: 10px;
-  }
-  
-  .favorite-card-description {
+}
+
+.favorite-card-description {
     font-size: 14px;
     color: #666;
     margin-bottom: 20px;
-  }
-  
-  .favorite-btn {
+}
+
+.favorite-btn {
     padding: 10px 15px;
     font-size: 14px;
     border: none;
@@ -158,15 +221,13 @@ body {
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .favorite-btn:hover {
+}
+
+.favorite-btn:hover {
     background-color: #23527c;
-  }
-  
- 
-  
-  .favorite-card {
+}
+
+.favorite-card {
     width: 300px; /* Set a fixed width for the card */
     height: 400px; /* Set a fixed height for the card */
     margin: 0 auto; /* Center the card horizontally */
@@ -176,21 +237,20 @@ body {
     transition: transform 0.2s;
     display: flex; /* Use flexbox to stack elements vertically */
     flex-direction: column; /* Stack elements vertically */
-  }
-  
-  
-  .favorite-card-body {
+}
+
+.favorite-card-body {
     padding: 20px; /* Add some padding to the card body */
     flex-grow: 1; /* Take up the remaining space */
-  }
-  
-  .favorite-card-actions {
+}
+
+.favorite-card-actions {
     padding: 20px; /* Add some padding to the actions section */
     background-color: #f7f7f7; /* Add a background color to the actions section */
     border-top: 1px solid #ddd; /* Add a border to separate the actions section */
-  }
+}
 
-  .favorite-card-image-container {
+.favorite-card-image-container {
     width: 100%;
     height: 200px; /* Set the height for the image container */
     border-radius: 10px 10px 0 0;
@@ -198,22 +258,43 @@ body {
     display: flex; /* Use flexbox to center the image */
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
-  }
-  
-  .favorite-card-image {
+}
+
+.favorite-card-image {
     max-width: 100%; /* Ensure the image does not exceed the container width */
     max-height: 100%; /* Ensure the image does not exceed the container height */
     object-fit: cover; /* Maintain aspect ratio */
-  }
+}
 
-  .download-info {
-    font-size: 14px;
-    color: #666;
-    margin-right: 10px;
-  }
-  
-  .download-info i {
-    font-size: 16px;
-    margin-right: 5px;
-    color: #337ab7; /* Use a blue color to match the download icon */
-  }
+.card-actions {
+    margin-top: auto;
+    padding-bottom: 1rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.btn-group {
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.btn-group .btn {
+    border-radius: 0 !important;
+}
+
+.btn-group .btn:first-child {
+    border-top-left-radius: 6px !important;
+    border-bottom-left-radius: 6px !important;
+}
+
+.btn-group .btn:last-child {
+    border-top-right-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+}
+
+.card-grid-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}

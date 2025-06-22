@@ -1,69 +1,106 @@
 <!-- base.html -->
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}MyLib{% endblock %}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <style>
-        .navbar-dark .navbar-nav .nav-link {
-            color: #fff;
-        }
+    
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-        .navbar-dark .navbar-nav .nav-link:hover {
-            color: #ccc;
+    <!-- Bootstrap & Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .navbar-brand {
+            font-weight: 700;
+        }
+        .content-wrapper {
+            flex: 1 0 auto;
+        }
+        .footer {
+            flex-shrink: 0;
+            padding: 1rem 0;
+            background-color: #343a40;
+            color: white;
         }
     </style>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body class="d-flex flex-column h-100">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}" style="font-size: 40px; color: #fff;">MyLib</a>
+            <a class="navbar-brand" href="{% url 'home' %}">MyLib</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}" style="color: #fff;vertical-align: middle;"><h3>Home</h3></a>
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
                     </li>
-                    {% if user.is_authenticated %}
-                    <li class="navbar-nav ms-auto ">
-                        <a class="nav-link" href="#" onclick="document.getElementById('logout-form').submit()" style="color: #fff;"><h3>Logout</h3></a>
-                        <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: none;">
-                            {% csrf_token %}
-                        </form>
-                    </li>
-                    {% endif %}
                 </ul>
-                <form  class="d-flex ms-auto" method="get" action="{% url 'search_results' %}">
-                    <input required class="form-control me-2" type="search" name="q" placeholder="Search...">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+
+                <form class="d-flex mx-auto" method="get" action="{% url 'search_results' %}" style="max-width: 400px;">
+                    <input required class="form-control me-2" type="search" name="q" placeholder="Search for books...">
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
                 </form>
-                <ul class="navbar-nav ms-auto">
+
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'favorites' %}"><h3>My Favorites</h3></a>
+                            <a class="nav-link" href="{% url 'favorites' %}">My Favorites</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Hello, {{ user.username }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <form id="logout-form" method="post" action="{% url 'logout' %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="dropdown-item">
+                                            <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'login' %}"><h3>Login</h3></a>
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'signup' %}"><h3>SignUp</h3></a>
+                            <a class="nav-link btn btn-primary ms-2" href="{% url 'signup' %}">Sign Up</a>
                         </li>
                     {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
-    <div class="container mt-4">
+    
+    <div class="container mt-4 content-wrapper">
         {% block content %}{% endblock %}
     </div>
+
+    <footer class="footer mt-auto py-2 bg-dark">
+        <div class="container text-center text-white">
+            <p class="mb-0">&copy; {% now "Y" %} MyLib. All rights reserved.</p>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         window.onload = function() {
@@ -72,6 +109,6 @@
             document.getElementById('id_status').focus();
           }
         }
-      </script>
+    </script>
 </body>
 </html>

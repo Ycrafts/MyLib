@@ -78,18 +78,18 @@ class DeleteFavoriteView(LoginRequiredMixin, DeleteView):  #favorite related
     
 class SearchView(ListView):
     model = Book
-    form_class = SearchForm
     template_name = 'books/search_results.html'
     context_object_name = "book_search_list"
+
     def get_queryset(self):
-        queryset = super().get_queryset()
-        form = self.form_class(self.request.GET)
-        if form.is_valid():
-            query = form.cleaned_data['q']
-            queryset = queryset.filter(
-                title__icontains=query) | queryset.filter(
-                author__name__icontains=query) | queryset.filter(
-                category__name__icontains=query) | queryset.filter(
-                publicationDate__icontains=query)
-                
-        return queryset
+        query = self.request.GET.get('q')
+        if query:
+            return Book.objects.filter(
+                title__icontains=query
+            )
+        return Book.objects.none()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.request.GET.get('q', '')
+        return context

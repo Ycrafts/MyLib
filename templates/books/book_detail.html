@@ -1,15 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="book-detail container mx-auto p-4">
-        <h2 class="text-2xl font-bold mb-4">{{ object.title }}</h2>
-        <p class="text-lg mb-6">by {{ object.author }} published on {{ object.publicationDate }}</p>
-        <img class="book-cover w-24 h-36 object-cover rounded-md mb-4" src="{{ book.coverImage.url }}">
-        <p class="book-actions mb-4">
-            <a href="{% url 'book_pdf_open' book.pk %}">Read Online</a>
-            <a href="{% url 'book_pdf_download' book.pk %}">Download</a>
-            <a href="{% url 'add_to_fav' book.pk %}">Add to Favorites +</a>
-        </p>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      
+      <div class="text-center">
+        <img src="{{ book.coverImage.url }}" class="img-fluid rounded-3 mb-4 shadow-sm" alt="{{ book.title }} cover" style="max-height: 400px;">
+        <h1 class="fw-bold">{{ object.title }}</h1>
+        <p class="lead text-muted">by {{ object.author }}</p>
+        <p class="text-muted"><small>Published on {{ object.publicationDate }}</small></p>
+        <div class="d-flex justify-content-center align-items-center my-3 text-primary">
+            <i class="fas fa-download me-2"></i>
+            <span>{{ object.download_count }} downloads</span>
+        </div>
+      </div>
+
+      <hr class="my-4">
+      
+      <p>{{ object.description }}</p>
+      
+      <hr class="my-4">
+
+      <div class="d-grid gap-2 col-8 mx-auto">
+        <a href="{% url 'book_pdf_open' book.pk %}" class="btn btn-primary btn-lg">Read Online</a>
+        <a href="{% url 'book_pdf_download' book.pk %}" class="btn btn-success btn-lg">Download PDF</a>
+        <a href="{% url 'add_to_fav' book.pk %}" class="btn btn-danger btn-lg"><i class="fas fa-heart me-1"></i> Add to Favorites</a>
+      </div>
+
+      <div class="text-center mt-5">
+        <a href="{% url 'home' %}" class="text-secondary text-decoration-none">
+          <i class="fas fa-arrow-left me-1"></i> Back to All Books
+        </a>
+      </div>
+
     </div>
-    <p class="text-lg mb-4">Back to <a class="text-blue-600 hover:text-blue-800" href="{% url 'book_list' %}">All books</a>.</p>
+  </div>
+</div>
 {% endblock content %}

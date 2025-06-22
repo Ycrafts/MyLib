@@ -1,28 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h1 class="favorites-title">Favorites</h1>
-  <ul class="favorites-list">
+<div class="container py-4">
+  <h1 class="favorites-title">My Favorite Books</h1>
+  
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
     {% for favorite in favorites %}
-      <li class="favorite-item">
-        <div class="favorite-card">
+      <div class="col">
+        <div class="card book-card h-100">
           <a href="{% url 'book_detail' favorite.book.pk %}">
-            <div class="favorite-card-image-container">
-            <img src="{{ favorite.book.coverImage.url }}" class="favorite-card-image" alt="Picture Unavailable">
-            </div>
+            <img src="{{ favorite.book.coverImage.url }}" class="card-img-top" alt="{{ favorite.book.title }} cover">
           </a>
-          <div class="favorite-card-body">
-            <h5 class="favorite-card-title">{{ favorite.book.title }}</h5>
-            <p class="favorite-card-author">by {{ favorite.book.author }}</p>
-            <p class="favorite-card-description">{{ favorite.book.description|truncatewords:20 }}</p>
-            <div class="favorite-card-actions">
-              <a href="{% url 'book_detail' favorite.book.pk %}" class="btn btn-dark">View Details</a>
-              <a href="{% url 'remove_favorite' favorite.book.pk %}" class="btn btn-dark">Remove</a>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ favorite.book.title }}</h5>
+            <p class="card-text">by {{ favorite.book.author }}</p>
+            <div class="download-info mt-auto">
+              <i class="fas fa-download"></i> {{ favorite.book.download_count }} downloads
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="btn-group w-100" role="group">
+              <a href="{% url 'book_detail' favorite.book.pk %}" class="btn btn-outline-dark btn-sm">Details</a>
+              <a href="{% url 'remove_favorite' favorite.book.pk %}" class="btn btn-outline-danger btn-sm">Remove</a>
             </div>
           </div>
         </div>
-      </li>
+      </div>
     {% empty %}
-      <li>No books available.</li>
+      <div class="col-12">
+        <p class="text-center">You haven't added any books to your favorites yet.</p>
+      </div>
     {% endfor %}
-  </ul>
+  </div>
+</div>
 {% endblock content %}

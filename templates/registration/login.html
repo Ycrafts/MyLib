@@ -1,14 +1,30 @@
-{% extends 'base.html'%} 
+{% extends 'base.html' %} 
 {% load crispy_forms_tags %}
-{% block title%} Login {% endblock title %}
-{% block content %}
 
-    <h4>You need to login to access exclusive features</h4><br/>
-    <form method="post">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit">Log In</button>
-    </form><br/>
-    <a href="{% url 'password_reset' %}">Forgot Password?</a>
-    
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="auth-form-container mt-5">
+        <h2 class="text-center mb-4">Log In</h2>
+        <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary mt-3">Log In</button>
+          </div>
+        </form>
+        <div class="text-center mt-3">
+          <a href="{% url 'password_reset' %}">Forgot Password?</a>
+        </div>
+        <hr>
+        <div class="text-center">
+          <p>Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock content %}
